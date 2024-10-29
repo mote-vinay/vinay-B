@@ -1,0 +1,379 @@
+Week:7 Explore Docker Commands for Content Management??
+
+What is Docker??
+
+Docker is an open-source platform that enables developers to automate the deployment, scaling, and management of applications in lightweight, portable containers. Containers package an application and its dependencies together, ensuring that it runs consistently across different environments.
+
+### Key Features of Docker:
+
+1. *Containerization:* Docker uses containers to encapsulate applications and their dependencies, allowing them to run in isolation from one another.
+
+2. *Portability:* Containers can run on any system that has Docker installed, regardless of the underlying operating system or infrastructure.
+
+3. *Efficiency:* Containers are lightweight and share the host system's kernel, which makes them faster to start and less resource-intensive compared to traditional virtual machines.
+
+4. *Version Control:* Docker images can be versioned, making it easy to roll back to previous versions or deploy specific configurations.
+
+5. *Ecosystem:* Docker has a rich ecosystem, including Docker Hub, a repository for sharing and managing container images. 
+
+1. OPEN COMMAND PROMPT (WIN+R) CMD  
+     
+ 2.  echo %PROCESSOR_ARCHITECTURE%   
+    ---> Press ENTER
+    AMD64
+ 3. In keyboard Press Windows Button Search for Turn Windows features on Or Off 
+   
+4. Enable(Select the CheckBox) the Hyper-V and Windows Subsystem for Linux
+  
+Enabling Hyper-V and the Windows Subsystem for Linux (WSL) is important for Docker installation on Windows because they provide the necessary virtualization and compatibility features.
+
+Hyper-V
+Hyper-V is a native hypervisor built into Windows that allows you to create and manage virtual machines. It enables Windows to run multiple operating systems simultaneously, which is essential for containerization technologies like Docker. Docker on Windows uses Hyper-V to create lightweight virtual environments (containers) that can run isolated applications.
+
+Windows Subsystem for Linux (WSL)
+WSL allows you to run a Linux environment directly on Windows without the need for a virtual machine. It provides a compatibility layer for running Linux binaries natively on Windows. WSL is useful for Docker because many Docker tools and images are based on Linux, and WSL allows seamless integration and access to these tools from a Windows system.
+
+
+  
+ 1.Check your docker version
+   docker --version
+ 2. Get information about your docker installation
+   docker info
+ 3. List all downloaded images
+   docker images
+  4. Download a docker image from Docker Hub
+    docker pull <image>
+    Ex: docker pull python
+ 5. Remove a specific image
+   Command: docker rmi <image>
+
+    6. Start a new Container 
+      Command: docker run <image>
+      Ex: docker run python
+  7.List Running Containers
+    Cmd: docker ps
+  8.List all containers,including Stopped ones
+    docker ps -a
+  9.Stop a Running Container
+    docker stop <container_id>
+ 10. Start a Stopped Container
+    docker start <conatiner_id>
+ 11.Remove a stopped Container
+    docker rm <container_id>
+ 12.View logs from a Specific Container
+    docker logs < container_id>
+13. Display Resource usage statistics for running containers
+    docker stats
+14. To Build the Image
+    docker build -t <Image_Name>
+
+  C:\Program Files\Docker>docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+
+
+C:\Program Files\Docker>docker pull python
+Using default tag: latest
+latest: Pulling from library/python
+7fd1c94ea9ec: Download complete
+6d4976a28162: Download complete
+7aadc5092c3b: Download complete
+ad1c7cfc347f: Download complete
+7d98d813d54f: Download complete
+da802df85c96: Download complete
+3cb0c7824817: Download complete
+Digest: sha256:a31cbb4db18c6f09e3300fa85b77f6d56702501fcb9bdb8792ec702a39ba6200
+Status: Downloaded newer image for python:latest
+docker.io/library/python:latest
+
+C:\Program Files\Docker>docker images
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+python       latest    a31cbb4db18c   5 days ago   1.47GB
+
+C:\Program Files\Docker>docker pull mysql
+Using default tag: latest
+latest: Pulling from library/mysql
+cd68caa5febe: Download complete
+c0880e4b3737: Download complete
+78308a3437c4: Download complete
+aa23d877fa04: Download complete
+e575f6d9b17a: Download complete
+97f7c8c33abe: Download complete
+a143609ddd2d: Download complete
+eba3c26198b7: Download complete
+4bab267f9ce1: Download complete
+607f86c00053: Download complete
+Digest: sha256:fd8d1b4e287c49e1e35eb5a103f337111947662130eb8a3e6c3e823813f47f7d
+Status: Downloaded newer image for mysql:latest
+docker.io/library/mysql:latest
+
+C:\Program Files\Docker>docker images
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+python       latest    a31cbb4db18c   5 days ago   1.47GB
+mysql        latest    fd8d1b4e287c   9 days ago   826MB
+
+C:\Program Files\Docker>docker rmi mysql
+Untagged: mysql:latest
+Deleted: sha256:fd8d1b4e287c49e1e35eb5a103f337111947662130eb8a3e6c3e823813f47f7d
+
+C:\Program Files\Docker>docker run -it python
+Python 3.13.0 (main, Oct 19 2024, 04:14:02) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> print("Hello")
+Hello
+>>>
+
+
+C:\Program Files\Docker>docker ps
+CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS         PORTS     NAMES
+46fd00a7b579   python    "python3"   5 minutes ago   Up 5 minutes             charming_lederberg
+
+C:\Program Files\Docker>docker stop python
+Error response from daemon: No such container: python
+
+C:\Program Files\Docker>docker stop 46fd00a7b579
+46fd00a7b579
+
+C:\Program Files\Docker>docker ps -a
+CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS                        PORTS     NAMES
+46fd00a7b579   python    "python3"   6 minutes ago   Exited (137) 15 seconds ago             charming_lederberg
+
+C:\Program Files\Docker>docker start 46fd00a7b579
+46fd00a7b579
+
+C:\Program Files\Docker>docker ps
+CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS         PORTS     NAMES
+46fd00a7b579   python    "python3"   7 minutes ago   Up 7 seconds             charming_lederberg
+
+C:\Program Files\Docker>docker ps
+CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS          PORTS     NAMES
+46fd00a7b579   python    "python3"   7 minutes ago   Up 13 seconds             charming_lederberg
+
+C:\Program Files\Docker>docker logs 46fd00a7b579
+Python 3.13.0 (main, Oct 19 2024, 04:14:02) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> print("Hello")
+Hello
+>>> Python 3.13.0 (main, Oct 19 2024, 04:14:02) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+C:\Program Files\Docker>docker stats
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.01%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.14%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.14%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.11%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.11%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.11%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.11%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.10%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.10%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.11%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.11%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.11%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.11%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.10%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.10%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.10%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.10%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.10%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.10%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.14%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.14%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.11%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.11%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.10%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.10%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.09%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.07%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT    MEM %     NET I/O       BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   0.08%     8.605MiB / 3.74GiB   0.22%     1.05kB / 0B   0B / 0B     1
+CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+46fd00a7b579   charming_lederberg   --        -- / --             --        --        --          --
+context canceled
+
+
+
+
+
+
+
+
+
+
+
