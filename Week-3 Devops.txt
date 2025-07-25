@@ -1,0 +1,54 @@
+Windows+R and Type cmd Press Enter
+cd Desktop
+git clone https://github.com/mote-vinay/registration-form.git
+cd registration-form
+Copy the html file in registration-form folder
+git status
+git add login.html
+git status
+git commit -m "Added registration form"
+git branch
+git push origin main
+
+open registration form folder and open the login.html code 
+with notepad
+
+<label>Gender</label>
+<select>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+ Save the html form.
+ git status
+ git add login.html
+ git commit -m "Added Gender field to the code"
+ git branch
+ git push
+ 
+ Go to your Repository and Select Actions Scroll down  Configure Static Html 
+and  click on commit changes and next click on commit changes
+
+Open login.html form click on Edit symbol(Pencil) 
+Rename the file login.html file to index.html
+click commit changes and commit changes.
+
+
+Go to settings and Left Sidebar Select Pages---> Build and deployment
+-->Source---> Deploy from a branch
+ Branch Main  and /root  and click on Save.
+ 
+ 
+ git remote set-url origin https://github.com/mote-vinay/git-A.git
+ 
+
+
+
+
+
+
+
+
+
+ 
+ 
