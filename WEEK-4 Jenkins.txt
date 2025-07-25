@@ -1,0 +1,27 @@
+System.setProperty("hudson.model.
+DirectoryBrowserSupport.CSP", "")
+
+System.setProperty("hudson.model.
+DirectoryBrowserSupport.CSP",
+ "sandbox allow-same-origin allow-scripts; default-src 
+ 'self'; script-src * 'unsafe-eval'; img-src *; 
+ style-src * 'unsafe-inline'; font-src *")
+
+
+
+
+
+java -jar jenkins.war --httpPort=8080
+
+
+
+
+Copy the password
+
+Open Browserand type  http://localhost:8080
+
+Paste the password
+Click on Install Suggest plugins
+Skip and continue as admin
+Save and Finish
+start using jenkins
